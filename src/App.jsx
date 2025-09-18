@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PlanTrip from "./pages/PlanTrip";
+import Dashboard from "./pages/Dashboard"; // 1. Import the new Dashboard page
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/plan-trip" element={<PlanTrip />} />
+          <Route path="/dashboard" element={<Dashboard />} /> {/* 2. Add the new dashboard route */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

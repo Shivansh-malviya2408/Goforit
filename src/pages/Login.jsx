@@ -43,7 +43,7 @@ const Login = () => {
           title: "Welcome back!",
           description: "You have successfully logged in.",
         });
-        navigate("/plan-trip");
+        navigate("/dashboard"); // UPDATED REDIRECT PATH
       }
     } catch (error) {
       toast({

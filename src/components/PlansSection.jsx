@@ -5,7 +5,7 @@ import { Check, Star, Crown } from "lucide-react";
 const plans = [
   {
     name: "Basic",
-    price: "₹799",
+    price: "₹0.99",
     period: "/month",
     description: "Perfect for occasional travelers",
     features: [
@@ -20,7 +20,7 @@ const plans = [
   },
   {
     name: "Premium",
-    price: "₹2,499",
+    price: "₹1,999",
     period: "/month",
     description: "For the ultimate travel experience",
     features: [

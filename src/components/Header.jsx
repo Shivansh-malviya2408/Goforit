@@ -5,8 +5,9 @@ const Header = () => {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="text-2xl font-bold gradient-text">go for it</div>
+        <div className="flex flex-col items-center space-x-2">
+          <div className="text-2xl font-bold gradient-text">Go For It</div>
+          <div className="text-sm  mx-50px font-bold ">~Aarambh</div>
         </div>
         
         {/* Centered navigation links */}

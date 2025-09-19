@@ -21,16 +21,26 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
 
+  const email = localStorage.getItem('email');
+  const name= JSON.parse(localStorage.getItem('users'));
+   console.log(name)
+  let getData=name.find((u) =>
+    {
+      if(u.email === email)  return u
+     } )
+    
+
   const [profileData, setProfileData] = useState({
-    firstName: 'Alex',
-    lastName: 'Thompson',
-    email: 'alex.thompson@email.com',
-    phone: '+1 (555) 123-4567',
-    location: 'New York, NY',
+    firstName: getData.fullName.split(' ')[0],
+    lastName:  getData.fullName.split(' ')[1],
+    email:  getData.email,
+    acDate:getData.date,
+    phone: '+91 XXXXX-12345',
+    location: 'Bhopal, Madhya Pradesh',
     dateOfBirth: '1990-05-15',
-    nationality: 'United States',
-    passportNumber: 'US123456789',
-    emergencyContact: 'Sarah Thompson - +1 (555) 987-6543'
+    nationality: 'INDIAN',
+    passportNumber: 'IND123456789',
+    emergencyContact: ''
   });
 
   const travelStats = {
@@ -78,6 +88,11 @@ const Profile = () => {
       <span className="font-medium">{label}</span>
     </button>
   );
+  
+  
+
+
+
 
   // 🚀 **FIXED INPUT CLASS**: The background color is now set to white in dark mode
   // to ensure the dark (black) text is highly visible.
@@ -143,7 +158,7 @@ const Profile = () => {
               </div>
               <div className="flex items-center space-x-1">
                 <Calendar className="w-4 h-4" />
-                <span className="text-sm">Member since 2022</span>
+                <span className="text-sm">Member since {profileData.acDate}</span>
               </div>
             </div>
           </div>
@@ -394,6 +409,7 @@ const Profile = () => {
                       disabled={!isEditing}
                       className={inputClass}
                     >
+                      <option value="INR">INR</option>
                       <option value="USD">USD</option>
                       <option value="EUR">EUR</option>
                       <option value="GBP">GBP</option>

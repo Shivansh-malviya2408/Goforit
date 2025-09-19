@@ -17,8 +17,8 @@ const Budget = () => {
   const [selectedTrip, setSelectedTrip] = useState('paris');
 
   const trips = [
-    { id: 'paris', name: 'Paris Adventure', budget: 3500, spent: 2480 },
-    { id: 'tokyo', name: 'Tokyo Explorer', budget: 4200, spent: 150 }
+    { id: 'paris', name: 'Udaipur Vibe', budget: 3500, spent: 2480 },
+    { id: 'tokyo', name: 'Goa Explorer', budget: 4200, spent: 150 }
   ];
 
   const budgetBreakdown = {
@@ -31,10 +31,10 @@ const Budget = () => {
         { name: 'Food & Dining', budgeted: 200, spent: 200, icon: Target, color: 'purple' }
       ],
       recentExpenses: [
-        { date: '2024-12-20', description: 'Hotel de Louvre', amount: 280, category: 'Accommodation' },
-        { date: '2024-12-19', description: 'Le Jules Verne Restaurant', amount: 85, category: 'Food & Dining' },
+        { date: '2024-12-20', description: 'Hotel Rassionance', amount: 280, category: 'Accommodation' },
+        { date: '2024-12-19', description: 'Hotel Lake Pichola', amount: 85, category: 'Food & Dining' },
         { date: '2024-12-19', description: 'Metro Pass', amount: 15, category: 'Transportation' },
-        { date: '2024-12-18', description: 'Louvre Museum Tickets', amount: 45, category: 'Activities' }
+        { date: '2024-12-18', description: 'Science Museum Tickets', amount: 45, category: 'Activities' }
       ]
     },
     tokyo: {
@@ -156,16 +156,16 @@ const Budget = () => {
               <div className="space-y-2">
                 <div>
                   <p className="text-sm text-gray-400">Total Budget</p>
-                  <p className="text-xl font-bold text-white">${currentTrip.budget.toLocaleString()}</p>
+                  <p className="text-xl font-bold text-white">₹{currentTrip.budget.toLocaleString()}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Spent</p>
-                  <p className="text-lg font-semibold text-gray-300">${currentTrip.spent.toLocaleString()}</p>
+                  <p className="text-lg font-semibold text-gray-300">₹{currentTrip.spent.toLocaleString()}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-400">Remaining</p>
                   <p className={`text-lg font-semibold ${remainingBudget < currentTrip.budget * 0.2 ? 'text-red-400' : 'text-green-400'}`}>
-                    ${remainingBudget.toLocaleString()}
+                  ₹{remainingBudget.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ const Budget = () => {
                         <div>
                           <h3 className="font-medium text-white">{category.name}</h3>
                           <p className="text-sm text-gray-400">
-                            ${category.spent.toLocaleString()} of ${category.budgeted.toLocaleString()}
+                          ₹{category.spent.toLocaleString()} of ₹{category.budgeted.toLocaleString()}
                           </p>
                         </div>
                       </div>
@@ -250,7 +250,7 @@ const Budget = () => {
                     </span>
                   </div>
                 </div>
-                <span className="font-semibold text-green-400">${expense.amount}</span>
+                <span className="font-semibold text-green-400">₹{expense.amount}</span>
               </div>
             ))}
           </div>

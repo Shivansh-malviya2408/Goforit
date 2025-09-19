@@ -20,6 +20,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
+   
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -48,14 +49,23 @@ const Signup = () => {
       //     },
       //   },
       // });
-      const users = JSON.parse(localStorage.getItem("users")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.find((u) => u.email === email)) {
       alert("User already exists!");
       return;
     }
+     
+    const currentData = new Date();
+    const date = currentData.toLocaleDateString('en-US', {
+      month: 'short', // 'Sep'
+      day: 'numeric', // '19'
+      year: 'numeric'  // '2025'
+    });
+    
+    // console.log(date,`heheh`);
 
       
-    users.push({ email, password });
+    users.push({ email, password,fullName,date});
     localStorage.setItem("users", JSON.stringify(users));
 
       if (!users) {
@@ -69,8 +79,13 @@ const Signup = () => {
           title: "Account Created!",
           description: "Please check your email to verify your account.",
         });
-        localStorage.setItem("name",fullName);
-        navigate("/login");
+        // localStorage.setItem("name",fullName);
+        // console.log(users[0])
+        // const token = generateToken(users[0]);
+        // localStorage.setItem("token", token);
+        // localStorage.setItem("email",email);
+         navigate("/login");
+        // navigate("/l");
       }
     } catch (error) {
       toast({

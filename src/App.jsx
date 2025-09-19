@@ -9,10 +9,12 @@ import Signup from "./pages/Signup";
 import PlanTrip from "./pages/PlanTrip";
 import NotFound from "./pages/NotFound";
 import DashLayout from "./pages/DashLayout";
-import Booking from "./pages/Booking";
-import Itinerary from "./pages/Itinerary";
-import Notifications from "./pages/Notifications";
+// import Payment from "./pages/payment";
+// import Booking from "./pages/Booking";
+// import Itinerary from "./pages/Itinerary";
+// import Notifications from "./pages/Notifications";
 import { AuthProvider } from "./components/context/AuthContext";
+// import Payment from 
 
 const queryClient = new QueryClient();
 
@@ -30,15 +32,10 @@ const App = () => (
 
          <Route path="/dashboard/*" element={<DashLayout/>}>
 
-          {/* <Route path="/booking" element={<Booking />} />
-          <Route path="/Itinerary" element={<Itinerary />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/notifications" element={<Notifications/>} /> */}
+          
 
          </Route>
-
-          {/* <Route path="/plan-trip" element={<PlanTrip />} /> */}
-        {/* <Route path="/dashlayout" element={<DashboardLayout />} /> */}
+         
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

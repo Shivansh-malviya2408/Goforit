@@ -40,7 +40,7 @@ const Booking = () => {
       date: 'Dec 15-22, 2024',
       time: 'Check-in 3:00 PM',
       status: 'confirmed',
-      price: '₹68277/night',
+      price: '₹68,277/night',
       passengers: 2
     },
     {
@@ -51,7 +51,7 @@ const Booking = () => {
       date: 'Dec 15-22, 2024',
       time: 'Pick-up 9:00 AM',
       status: 'pending',
-      price: '$420',
+      price: '₹37,000',
       passengers: 2
     },
     {
@@ -62,7 +62,7 @@ const Booking = () => {
       date: 'Dec 16, 2024',
       time: '2:00 PM',
       status: 'confirmed',
-      price: '$85',
+      price: '₹10,000',
       passengers: 2
     }
   ];

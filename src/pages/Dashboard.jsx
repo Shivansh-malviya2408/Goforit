@@ -19,14 +19,14 @@ const Dashboard = () => { // Removed : React.FC
       destination: 'Udaipur, India',
       dates: 'Sep 25 - Sep 29, 2025',
       status: 'Confirmed',
-      image: 'https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg'
+      image: 'https://assets-news.housing.com/news/wp-content/uploads/2022/07/04223747/featured-compressed-1.jpg'
     },
     {
       id: 2,
       destination: 'Kerala, India',
       dates: 'Oct 10 - Oct 16, 2025',
       status: 'Planning',
-      image: 'https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg'
+      image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2VyYWxhfGVufDB8fDB8fHww'
     }
   ];
 
@@ -46,15 +46,26 @@ const Dashboard = () => { // Removed : React.FC
     { action: 'AI itinerary generated', time: '3 days ago', icon: Camera }
   ];
 
-  const name=localStorage.getItem('name');
-  const nname=name.split(' ')[0];
+  // const name=localStorage.getItem('name');
+  // const nname=name.split(' ')[0];
+
+  const email = localStorage.getItem('email');
+  const name= JSON.parse(localStorage.getItem('users'));
+   console.log(name)
+  let getName=name.find((u) =>
+    {
+      if(u.email === email)  return u
+     } )
+    console.log(getName)
+    const ogName=getName.fullName.split(" ")[0]
+     
 
   return (
     <div className="space-y-8 from-slate-50 to-blue-50">
       {/* Header */}
       <div className="flex items-center  justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome, {nname}</h1>
+          <h1 className="text-3xl font-bold text-foreground">Welcome, {ogName}</h1>
           <p className="text-muted-foreground mt-1">Plan your next adventure with AI-powered insights</p>
         </div>
         <div className="flex items-center space-x-4">

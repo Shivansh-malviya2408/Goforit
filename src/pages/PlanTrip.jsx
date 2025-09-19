@@ -5,14 +5,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+// import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
-    Send, Sparkles, Compass, Gem, PlusCircle, MapPin, Clock, Plane, Hotel, Edit, Calendar, Users, Utensils, Camera, MountainSnow, FerrisWheel, Briefcase, ShoppingCart, Drama, Ship, Palmtree, CheckCircle, Train, Mountain, Waves, Landmark
+    Send, Sparkles, Compass, Gem, PlusCircle, MapPin, Clock, Plane, Hotel, Edit, Calendar, Users, Utensils, Camera, MountainSnow, FerrisWheel, Briefcase, ShoppingCart, Drama, Ship, Palmtree, CheckCircle, Train, Mountain, Waves, Landmark,
+    Link
 } from "lucide-react";
 
 // --- Mock Data ---
+
+// const navigate = useNavigate();
 
 const destinationsData = {
     "rajasthan": {
@@ -73,8 +78,8 @@ const activityIcons = {
 const packageData = {
     cultural: [
         { id: 'c1', name: 'Golden Triangle Odyssey', image: 'https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Explore the iconic cities of Delhi, Agra, and Jaipur.', durations: [{ days: 5, price: '₹35,000' }, { days: 7, price: '₹45,000' }] },
-        { id: 'c2', name: 'Colors of Rajasthan', image: 'https://images.pexels.com/photos/3579181/pexels-photo-3579181.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Experience the royal heritage of Udaipur and Jodhpur.', durations: [{ days: 4, price: '₹30,000' }, { days: 6, price: '₹42,000' }] },
-        { id: 'c3', name: 'South India Temple Tour', image: 'https://images.pexels.com/photos/14875323/pexels-photo-14875323.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Visit the magnificent temples of Madurai and Thanjavur.', durations: [{ days: 6, price: '₹48,000' }] },
+        { id: 'c2', name: 'Colors of Rajasthan', image: 'https://images.unsplash.com/photo-1602643163983-ed0babc39797?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFqYXN0aGFuJTIwY3VsdHVyZXxlbnwwfHwwfHx8MA%3D%3D', description: 'Experience the royal heritage of Udaipur and Jodhpur.', durations: [{ days: 4, price: '₹30,000' }, { days: 6, price: '₹42,000' }] },
+        { id: 'c3', name: 'South India Temple Tour', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9xDw5hZBl16IAVWYRXT8kVgg0Srw3B8zPeg&s', description: 'Visit the magnificent temples of Madurai and Thanjavur.', durations: [{ days: 6, price: '₹48,000' }] },
     ],
     adventure: [
         { id: 'a1', name: 'Himalayan High', image: 'https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Trekking and paragliding in Manali and Solang Valley.', durations: [{ days: 6, price: '₹40,000' }, { days: 8, price: '₹55,000' }] },
@@ -82,14 +87,14 @@ const packageData = {
         { id: 'a3', name: 'Scuba in Andaman', image: 'https://images.pexels.com/photos/1473199/pexels-photo-1473199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Explore the underwater world of the Andaman Islands.', durations: [{ days: 5, price: '₹58,000' }] },
     ],
     hiddenGems: [
-        { id: 'hg1', name: 'Meghalaya\'s Wonders', image: 'https://images.pexels.com/photos/16842516/pexels-photo-16842516/free-photo-of-a-waterfall-in-a-jungle.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Discover living root bridges and serene lakes.', durations: [{ days: 7, price: '₹60,000' }] },
-        { id: 'hg2', name: 'Hampi\'s Boulders', image: 'https://images.pexels.com/photos/1070850/pexels-photo-1070850.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Explore the ancient ruins and unique landscape of Hampi.', durations: [{ days: 4, price: '₹32,000' }] },
-        { id: 'hg3', name: 'Spiti Valley Expedition', image: 'https://images.pexels.com/photos/11189809/pexels-photo-11189809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'A road trip through the cold desert mountains.', durations: [{ days: 8, price: '₹75,000' }] },
+        { id: 'hg1', name: 'Meghalaya\'s Wonders', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1P0fPVPdsfoUDLS4T9g-B58TsnmeXNaFy6Q&s', description: 'Discover living root bridges and serene lakes.', durations: [{ days: 7, price: '₹60,000' }] },
+        { id: 'hg2', name: 'Hampi\'s Boulders', image: 'https://farm2.staticflickr.com/1844/29676734957_bc52522c08_b.jpg', description: 'Explore the ancient ruins and unique landscape of Hampi.', durations: [{ days: 4, price: '₹32,000' }] },
+        { id: 'hg3', name: 'Spiti Valley Expedition', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHn0hdKyFgQYy0vJSw0Nw5QLPiuFqgnodJTQ&s', description: 'A road trip through the cold desert mountains.', durations: [{ days: 8, price: '₹75,000' }] },
     ],
     religious: [
-        { id: 'r1', name: 'Varanasi Spiritual Sojourn', image: 'https://images.pexels.com/photos/3889868/pexels-photo-3889868.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'Experience the Ganga Aarti and ancient temples of Kashi.', durations: [{ days: 4, price: '₹25,000' }] },
-        { id: 'r2', name: 'Golden Temple & Amritsar', image: 'https://images.pexels.com/photos/975382/pexels-photo-975382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'A journey of peace to the Golden Temple and Wagah Border.', durations: [{ days: 4, price: '₹22,000' }] },
-        { id: 'r3', name: 'Char Dham Yatra', image: 'https://images.pexels.com/photos/1608111/pexels-photo-1608111.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', description: 'A pilgrimage to the four holy sites in Uttarakhand.', durations: [{ days: 8, price: '₹80,000' }] },
+        { id: 'r1', name: 'Varanasi Spiritual Sojourn', image: 'https://bhramantoo.com/uploads/0000/6/2025/05/08/download-19.png', description: 'Experience the Ganga Aarti and ancient temples of Kashi.', durations: [{ days: 4, price: '₹25,000' }] },
+        { id: 'r2', name: 'Golden Temple & Amritsar', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Golden_Temple_of_Amrithsar_7.jpg/1200px-The_Golden_Temple_of_Amrithsar_7.jpg', description: 'A journey of peace to the Golden Temple and Wagah Border.', durations: [{ days: 4, price: '₹22,000' }] },
+        { id: 'r3', name: 'Char Dham Yatra', image: 'https://www.shrineyatra.in/wp-content/uploads/2024/05/chardham-yatra-package.webp', description: 'A pilgrimage to the four holy sites in Uttarakhand.', durations: [{ days: 8, price: '₹80,000' }] },
     ],
 };
 
@@ -522,9 +527,11 @@ const TripPlannerSection = () => {
                     <Button className="w-full" variant="outline" onClick={() => handleViewPackage(pkg)}>
                         View Itinerary
                     </Button>
-                    <Button className="w-full bg-gradient-hero hover:opacity-90">
+                    
+                   <Button className="w-full bg-gradient-hero hover:opacity-90">
                         Book Now
                     </Button>
+                  
                 </div>
             </CardContent>
         </Card>

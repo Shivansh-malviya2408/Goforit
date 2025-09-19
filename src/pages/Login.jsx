@@ -31,6 +31,7 @@ const Login = () => {
 
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const user = users.find((u) => u.email === email && u.password === password);
+      
 
       if (!user) {
         toast({
@@ -45,6 +46,7 @@ const Login = () => {
         });
         const token = generateToken(user);
        localStorage.setItem("token", token);
+       localStorage.setItem("email",email);
         navigate("/dashboard");
         
       }

@@ -1,3 +1,4 @@
+ 
 import React, { useState } from 'react';
 import {
   Bell,
@@ -94,13 +95,14 @@ const Notifications = () => {
 
   // Removed type annotations (priority: string, read: boolean)
   const getPriorityColor = (priority, read) => {
-    if (read) return 'border-l-gray-300';
+    if (read) return 'border-l-gray-700';
     
+    // Adjusted border color for high contrast on dark background
     switch (priority) {
       case 'high': return 'border-l-red-500';
       case 'medium': return 'border-l-yellow-500';
       case 'low': return 'border-l-blue-500';
-      default: return 'border-l-gray-300';
+      default: return 'border-l-gray-700';
     }
   };
 
@@ -147,26 +149,43 @@ const Notifications = () => {
     { value: 'reminder', label: 'Reminders' }
   ];
 
+  const TabButton = ({ id, label }) => (
+    <button
+      onClick={() => setFilter(id)}
+      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
+        filter === id
+          ? 'bg-blue-600 text-white'
+          : 'bg-gray-700 text-gray-300 hover:bg-gray-600' // Dark theme button style
+      }`}
+    >
+      {label}
+    </button>
+  );
+
   return (
-    <div className="space-y-6">
+    // 1. MAIN BACKGROUND: Set to gray-900 and default text to light gray
+    <div className="space-y-6 bg-gray-900 min-h-screen p-8 text-gray-100">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Notifications</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-white">Notifications</h1>
+          <p className="text-gray-400 mt-1">
             Stay updated with real-time travel alerts and reminders
             {unreadCount > 0 && (
-              <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              // Adjusted badge for dark theme contrast
+              <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-900/40 text-red-300 border border-red-800">
                 {unreadCount} unread
               </span>
             )}
           </p>
         </div>
         <div className="flex space-x-3">
-          <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200 flex items-center space-x-2">
+          {/* Secondary Button - Dark Theme Style */}
+          <button className="bg-gray-700 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-200 flex items-center space-x-2 border border-gray-600">
             <Settings className="w-4 h-4" />
             <span>Settings</span>
           </button>
+          {/* Primary Button */}
           <button 
             onClick={() => setNotifications(prev => prev.map(n => ({ ...n, read: true })))}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
@@ -176,24 +195,15 @@ const Notifications = () => {
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      {/* Filters (Card Style) */}
+      {/* 2. CARD BACKGROUND: Set to gray-800 and border to gray-700 */}
+      <div className="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
         <div className="flex items-center space-x-4">
-          <Filter className="w-5 h-5 text-gray-600" />
-          <span className="font-medium text-gray-700">Filter:</span>
+          <Filter className="w-5 h-5 text-gray-400" />
+          <span className="font-medium text-gray-300">Filter:</span>
           <div className="flex space-x-2 flex-wrap">
             {filterOptions.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setFilter(option.value)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                  filter === option.value
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {option.label}
-              </button>
+              <TabButton key={option.value} id={option.value} label={option.label} />
             ))}
           </div>
         </div>
@@ -207,14 +217,15 @@ const Notifications = () => {
           return (
             <div
               key={notification.id}
-              className={`bg-white rounded-xl shadow-sm border-l-4 ${getPriorityColor(notification.priority, notification.read)} hover:shadow-md transition-all duration-200 ${
-                !notification.read ? 'bg-blue-50/30' : ''
+              // 2. CARD BACKGROUND: Set to gray-800, using different shading for unread/read state
+              className={`bg-gray-800 rounded-xl shadow-lg border-l-4 ${getPriorityColor(notification.priority, notification.read)} transition-all duration-200 border border-gray-700 hover:border-gray-600 ${
+                !notification.read ? 'bg-gray-700/50' : '' // Slightly lighter background for unread
               }`}
             >
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    {/* Icon */}
+                    {/* Icon - Colors are dynamic and look good on dark/light backgrounds */}
                     <div className={`w-12 h-12 bg-gradient-to-r ${getTypeColor(notification.type)} rounded-xl flex items-center justify-center flex-shrink-0`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
@@ -222,20 +233,21 @@ const Notifications = () => {
                     {/* Content */}
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-2">
-                        <h3 className={`text-lg font-semibold ${notification.read ? 'text-gray-700' : 'text-gray-900'}`}>
+                        <h3 className={`text-lg font-semibold ${notification.read ? 'text-gray-300' : 'text-white'}`}>
                           {notification.title}
                         </h3>
                         {notification.actionRequired && (
-                          <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded">
+                           // Adjusted badge for dark theme contrast
+                          <span className="px-2 py-1 bg-orange-900/40 text-orange-300 text-xs font-medium rounded border border-orange-800">
                             Action Required
                           </span>
                         )}
                         {!notification.read && (
-                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                         )}
                       </div>
                       
-                      <p className={`mb-3 ${notification.read ? 'text-gray-600' : 'text-gray-700'}`}>
+                      <p className={`mb-3 ${notification.read ? 'text-gray-400' : 'text-gray-300'}`}>
                         {notification.message}
                       </p>
                       
@@ -251,7 +263,8 @@ const Notifications = () => {
                           {!notification.read && (
                             <button
                               onClick={() => markAsRead(notification.id)}
-                              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                              // Link/Action color adjusted for dark theme
+                              className="text-blue-400 hover:text-blue-300 text-sm font-medium"
                             >
                               Mark as Read
                             </button>
@@ -264,7 +277,7 @@ const Notifications = () => {
                   {/* Remove Button */}
                   <button
                     onClick={() => removeNotification(notification.id)}
-                    className="text-gray-400 hover:text-gray-600 p-1 rounded transition-colors duration-200"
+                    className="text-gray-500 hover:text-gray-300 p-1 rounded transition-colors duration-200"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -275,34 +288,35 @@ const Notifications = () => {
         })}
       </div>
 
-      {/* Empty State */}
+      {/* Empty State (Card Style) */}
       {filteredNotifications.length === 0 && (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Bell className="w-8 h-8 text-gray-400" />
+        <div className="text-center py-12 bg-gray-800 rounded-xl shadow-lg border border-gray-700">
+          <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Bell className="w-8 h-8 text-gray-500" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No notifications found</h3>
-          <p className="text-gray-600">
+          <h3 className="text-lg font-medium text-white mb-2">No notifications found</h3>
+          <p className="text-gray-400">
             {filter === 'unread' ? "You're all caught up!" : "Try adjusting your filter criteria"}
           </p>
         </div>
       )}
 
-      {/* Notification Settings */}
-      <div className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl p-6 text-white">
+      {/* Notification Settings (Gradient Style) */}
+      {/* 3. GRADIENT SECTION: Used the same dark gradient and black/transparent inner card */}
+      <div className="bg-gradient-to-r from-blue-700 to-teal-700 rounded-xl p-6 text-white shadow-xl">
         <h2 className="text-xl font-semibold mb-4">Notification Preferences</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+          <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
             <h3 className="font-medium mb-2">🔔 Real-time Alerts</h3>
-            <p className="text-sm opacity-90">Get instant notifications for flight changes and important updates</p>
+            <p className="text-sm opacity-80">Get instant notifications for flight changes and important updates</p>
           </div>
-          <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+          <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
             <h3 className="font-medium mb-2">📧 Email Digest</h3>
-            <p className="text-sm opacity-90">Receive daily summaries of your travel schedule and reminders</p>
+            <p className="text-sm opacity-80">Receive daily summaries of your travel schedule and reminders</p>
           </div>
-          <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+          <div className="bg-black/20 rounded-lg p-4 backdrop-blur-sm border border-white/10">
             <h3 className="font-medium mb-2">🤖 Smart Reminders</h3>
-            <p className="text-sm opacity-90">AI-powered suggestions for check-ins, bookings, and activities</p>
+            <p className="text-sm opacity-80">AI-powered suggestions for check-ins, bookings, and activities</p>
           </div>
         </div>
       </div>

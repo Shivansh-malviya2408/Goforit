@@ -12,11 +12,13 @@ import DashLayout from "./pages/DashLayout";
 import Booking from "./pages/Booking";
 import Itinerary from "./pages/Itinerary";
 import Notifications from "./pages/Notifications";
+import { AuthProvider } from "./components/context/AuthContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <AuthProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -42,6 +44,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

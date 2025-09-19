@@ -69,6 +69,7 @@ const Signup = () => {
           title: "Account Created!",
           description: "Please check your email to verify your account.",
         });
+        localStorage.setItem("name",fullName);
         navigate("/login");
       }
     } catch (error) {

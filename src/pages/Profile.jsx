@@ -71,7 +71,7 @@ const Profile = () => {
       className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors duration-200 ${
         activeTab === id
           ? 'bg-blue-600 text-white'
-          : 'text-gray-600 hover:bg-gray-100'
+          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
       }`}
     >
       <Icon className="w-4 h-4" />
@@ -79,20 +79,24 @@ const Profile = () => {
     </button>
   );
 
+  // 🚀 **FIXED INPUT CLASS**: The background color is now set to white in dark mode
+  // to ensure the dark (black) text is highly visible.
+  const inputClass = "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500 dark:text-gray-300  ";
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-white dark:bg-gray-800 p-6 md:p-10 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Profile & Preferences</h1>
-          <p className="text-gray-600 mt-1">Manage your account and travel preferences</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile & Preferences</h1>
+          <p className="text-gray-600 mt-1 dark:text-gray-400">Manage your account and travel preferences</p>
         </div>
         <div className="flex space-x-3">
           {isEditing ? (
             <>
               <button
                 onClick={() => setIsEditing(false)}
-                className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                className="bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
               >
                 Cancel
               </button>
@@ -151,7 +155,7 @@ const Profile = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+      <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
         <div className="flex space-x-4">
           <TabButton id="personal" label="Personal Info" icon={User} />
           <TabButton id="travel" label="Travel Stats" icon={Award} />
@@ -161,99 +165,99 @@ const Profile = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
         {activeTab === 'personal' && (
           <div className="p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Personal Information</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Personal Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">First Name</label>
                 <input
                   type="text"
                   value={profileData.firstName}
                   onChange={(e) => setProfileData({...profileData, firstName: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name</label>
                 <input
                   type="text"
                   value={profileData.lastName}
                   onChange={(e) => setProfileData({...profileData, lastName: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
                 <input
                   type="email"
                   value={profileData.email}
                   onChange={(e) => setProfileData({...profileData, email: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
                 <input
                   type="tel"
                   value={profileData.phone}
                   onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Location</label>
                 <input
                   type="text"
                   value={profileData.location}
                   onChange={(e) => setProfileData({...profileData, location: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date of Birth</label>
                 <input
                   type="date"
                   value={profileData.dateOfBirth}
                   onChange={(e) => setProfileData({...profileData, dateOfBirth: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Nationality</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nationality</label>
                 <input
                   type="text"
                   value={profileData.nationality}
                   onChange={(e) => setProfileData({...profileData, nationality: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Passport Number</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Passport Number</label>
                 <input
                   type="text"
                   value={profileData.passportNumber}
                   onChange={(e) => setProfileData({...profileData, passportNumber: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Emergency Contact</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Emergency Contact</label>
                 <input
                   type="text"
                   value={profileData.emergencyContact}
                   onChange={(e) => setProfileData({...profileData, emergencyContact: e.target.value})}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                  className={inputClass}
                 />
               </div>
             </div>
@@ -262,7 +266,7 @@ const Profile = () => {
 
         {activeTab === 'travel' && (
           <div className="p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Travel Statistics</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Travel Statistics</h3>
             
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -274,13 +278,13 @@ const Profile = () => {
               ].map((stat, index) => {
                 const Icon = stat.icon;
                 return (
-                  <div key={index} className="bg-gray-50 rounded-lg p-4">
+                  <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">{stat.label}</p>
-                        <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
                       </div>
-                      <Icon className="w-8 h-8 text-gray-400" />
+                      <Icon className="w-8 h-8 text-gray-400 dark:text-gray-600" />
                     </div>
                   </div>
                 );
@@ -289,14 +293,14 @@ const Profile = () => {
 
             {/* Achievements */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">Travel Achievements</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Travel Achievements</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center space-x-3 bg-gray-50 rounded-lg p-4">
+                  <div key={index} className="flex items-center space-x-3 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
                     <span className="text-2xl">{achievement.icon}</span>
                     <div>
-                      <p className="font-medium text-gray-900">{achievement.title}</p>
-                      <p className="text-sm text-gray-600">{achievement.description}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{achievement.title}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{achievement.description}</p>
                     </div>
                   </div>
                 ))}
@@ -307,28 +311,28 @@ const Profile = () => {
 
         {activeTab === 'preferences' && (
           <div className="p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Travel Preferences</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Travel Preferences</h3>
             
             <div className="space-y-6">
               <div>
-                <h4 className="font-medium text-gray-900 mb-3">Flight Preferences</h4>
+                <h4 className="font-medium text-gray-900 dark:text-white mb-3">Flight Preferences</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Airlines</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preferred Airlines</label>
                     <div className="space-y-2">
                       {preferences.preferredAirlines.map((airline, index) => (
                         <div key={index} className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-600">• {airline}</span>
+                          <span className="text-sm text-gray-600 dark:text-gray-400">• {airline}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Seat Preference</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Seat Preference</label>
                     <select
                       value={preferences.seatPreference}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="Aisle">Aisle</option>
                       <option value="Window">Window</option>
@@ -336,11 +340,11 @@ const Profile = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Meal Preference</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Meal Preference</label>
                     <select
                       value={preferences.mealPreference}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="Standard">Standard</option>
                       <option value="Vegetarian">Vegetarian</option>
@@ -353,23 +357,23 @@ const Profile = () => {
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-900 mb-3">Hotel Preferences</h4>
+                <h4 className="font-medium text-gray-900 dark:text-white mb-3">Hotel Preferences</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Hotel Chain</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Preferred Hotel Chain</label>
                     <input
                       type="text"
                       value={preferences.hotelChain}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Room Type</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Room Type</label>
                     <select
                       value={preferences.roomType}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="Standard Room">Standard Room</option>
                       <option value="Deluxe Room">Deluxe Room</option>
@@ -381,14 +385,14 @@ const Profile = () => {
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-900 mb-3">General Preferences</h4>
+                <h4 className="font-medium text-gray-900 dark:text-white mb-3">General Preferences</h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Currency</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Currency</label>
                     <select
                       value={preferences.currency}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="USD">USD</option>
                       <option value="EUR">EUR</option>
@@ -396,11 +400,11 @@ const Profile = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Language</label>
                     <select
                       value={preferences.language}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="English">English</option>
                       <option value="Spanish">Spanish</option>
@@ -408,11 +412,11 @@ const Profile = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Timezone</label>
                     <select
                       value={preferences.timezone}
                       disabled={!isEditing}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50"
+                      className={inputClass}
                     >
                       <option value="EST">EST</option>
                       <option value="PST">PST</option>
@@ -427,39 +431,39 @@ const Profile = () => {
 
         {activeTab === 'security' && (
           <div className="p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Security & Privacy</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Security & Privacy</h3>
             
             <div className="space-y-6">
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-2">Password Security</h4>
-                <p className="text-sm text-gray-600 mb-3">Keep your account secure with a strong password</p>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Password Security</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Keep your account secure with a strong password</p>
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors duration-200">
                   Change Password
                 </button>
               </div>
 
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-2">Two-Factor Authentication</h4>
-                <p className="text-sm text-gray-600 mb-3">Add an extra layer of security to your account</p>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Two-Factor Authentication</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Add an extra layer of security to your account</p>
                 <button className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition-colors duration-200">
                   Enable 2FA
                 </button>
               </div>
 
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium text-gray-900 mb-2">Privacy Settings</h4>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h4 className="font-medium text-gray-900 dark:text-white mb-2">Privacy Settings</h4>
                 <div className="space-y-3">
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" className="rounded" defaultChecked />
-                    <span className="text-sm text-gray-700">Allow marketing communications</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Allow marketing communications</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" className="rounded" defaultChecked />
-                    <span className="text-sm text-gray-700">Share travel preferences with partners</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Share travel preferences with partners</span>
                   </label>
                   <label className="flex items-center space-x-2">
                     <input type="checkbox" className="rounded" />
-                    <span className="text-sm text-gray-700">Allow location tracking for better recommendations</span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Allow location tracking for better recommendations</span>
                   </label>
                 </div>
               </div>

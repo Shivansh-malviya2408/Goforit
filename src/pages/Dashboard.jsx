@@ -35,7 +35,7 @@ const Dashboard = () => { // Removed : React.FC
     // which is valid in both TSX and JSX.
     { label: 'Active Trips', value: '2', icon: MapPin, color: 'blue' },
     { label: 'Total Bookings', value: '12', icon: Calendar, color: 'teal' },
-    { label: 'Budget Used', value: '$3,240', icon: CreditCard, color: 'orange' },
+    { label: 'Budget Used', value: '₹3,240', icon: CreditCard, color: 'orange' },
     { label: 'Notifications', value: '5', icon: Bell, color: 'green' }
   ];
 
@@ -46,12 +46,15 @@ const Dashboard = () => { // Removed : React.FC
     { action: 'AI itinerary generated', time: '3 days ago', icon: Camera }
   ];
 
+  const name=localStorage.getItem('name');
+  const nname=name.split(' ')[0];
+
   return (
     <div className="space-y-8 from-slate-50 to-blue-50">
       {/* Header */}
       <div className="flex items-center  justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome back, Alex!</h1>
+          <h1 className="text-3xl font-bold text-foreground">Welcome, {nname}</h1>
           <p className="text-muted-foreground mt-1">Plan your next adventure with AI-powered insights</p>
         </div>
         <div className="flex items-center space-x-4">

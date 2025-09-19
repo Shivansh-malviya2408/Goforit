@@ -5,11 +5,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+ 
+// 
+ 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAuth } from "@/components/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format, differenceInCalendarDays } from "date-fns";
 import { 
-    Send, Sparkles, Compass, Gem, PlusCircle, MapPin, Clock, Plane, Hotel, Edit, Calendar, Users, Utensils, Camera, MountainSnow, FerrisWheel, Briefcase, ShoppingCart, Drama, Ship, Palmtree, CheckCircle, Train, Mountain, Waves, Landmark
+    Send, Sparkles, Compass, Gem, PlusCircle, MapPin, Clock, Plane, Hotel, Edit, Calendar as CalendarIcon, Users, Utensils, Camera, MountainSnow, FerrisWheel, Briefcase, ShoppingCart, Drama, Ship, Palmtree, CheckCircle, Train, Mountain, Waves, Landmark
 } from "lucide-react";
 
 // --- Mock Data ---
@@ -128,9 +136,11 @@ const TripPlannerSection = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [selectedDurations, setSelectedDurations] = useState({});
   const [editorActiveTab, setEditorActiveTab] = useState('flights');
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
+  const [pendingItinerary, setPendingItinerary] = useState(null);
   const [tripDetails, setTripDetails] = useState({
     destination: "",
-    duration: "",
+    date: undefined,
     budget: "",
     travelers: "",
     preferences: ""
@@ -140,8 +150,49 @@ const TripPlannerSection = () => {
   const [selectedTrain, setSelectedTrain] = useState(null);
   const [transportMode, setTransportMode] = useState('flight');
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // Check if user came back from login/signup with pending itinerary
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasPendingItinerary = urlParams.get('showItinerary');
+    const storedItinerary = localStorage.getItem('pendingItinerary');
+    
+    if (hasPendingItinerary && storedItinerary && user) {
+      const itinerary = JSON.parse(storedItinerary);
+      setGeneratedItinerary(itinerary.itinerary);
+      // Dates need to be reconstructed from strings
+      const tripDate = itinerary.tripDetails.date;
+      if (tripDate && tripDate.from && tripDate.to) {
+        itinerary.tripDetails.date = {
+          from: new Date(tripDate.from),
+          to: new Date(tripDate.to),
+        };
+      }
+      setTripDetails(itinerary.tripDetails);
+      setSelectedFlight(itinerary.selectedFlight);
+      setSelectedHotel(itinerary.selectedHotel);
+      setSelectedTrain(itinerary.selectedTrain);
+      setTransportMode(itinerary.transportMode);
+      localStorage.removeItem('pendingItinerary');
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [user]);
+
   const generateItinerary = () => {
-    const duration = parseInt(tripDetails.duration.split(' ')[0], 10);
+    let duration;
+    let durationString = "";
+
+    if (tripDetails.date?.from && tripDetails.date?.to) {
+        const diffDays = differenceInCalendarDays(tripDetails.date.to, tripDetails.date.from) + 1;
+        duration = diffDays;
+        durationString = `${diffDays} days`;
+    } else {
+        return; // Can't generate without dates
+    }
+
     if (!duration || !tripDetails.destination) return;
 
     const destinationKey = Object.keys(destinationsData).find(key => 
@@ -174,7 +225,7 @@ const TripPlannerSection = () => {
 
     const itinerary = {
         destination: data.name,
-        duration: tripDetails.duration,
+        duration: durationString,
         budget: tripDetails.budget,
         days,
         flights: {
@@ -224,11 +275,33 @@ const TripPlannerSection = () => {
             ],
         }
     };
-    setGeneratedItinerary(itinerary);
-    setSelectedFlight(itinerary.flights.afternoon[0]); // Default selection
-    setSelectedHotel(itinerary.hotels.midRange[0]); // Default selection
-    setSelectedTrain(itinerary.trains[0]);
-    setTransportMode('flight');
+    const defaultFlight = itinerary.flights.afternoon[0];
+    const defaultHotel = itinerary.hotels.midRange[0];
+    const defaultTrain = itinerary.trains[0];
+    const defaultTransportMode = 'flight';
+
+    if (user) {
+      // User is authenticated, show itinerary immediately
+      setGeneratedItinerary(itinerary);
+      setSelectedFlight(defaultFlight);
+      setSelectedHotel(defaultHotel);
+      setSelectedTrain(defaultTrain);
+      setTransportMode(defaultTransportMode);
+    } else {
+      // User is not authenticated, store itinerary and show auth dialog
+      const fullItineraryData = {
+        itinerary,
+        tripDetails,
+        selectedFlight: defaultFlight,
+        selectedHotel: defaultHotel,
+        selectedTrain: defaultTrain,
+        transportMode: defaultTransportMode
+      };
+      
+      localStorage.setItem('pendingItinerary', JSON.stringify(fullItineraryData));
+      setPendingItinerary(itinerary);
+      setShowAuthDialog(true);
+    }
   };
 
   const totalPrice = useMemo(() => {
@@ -278,6 +351,38 @@ const TripPlannerSection = () => {
       setSelectedPackage({ ...pkg, selectedDuration: duration, itinerary: {days} });
       setIsViewingPackage(true);
   }
+  
+  const AuthDialog = () => (
+    <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-center gradient-text">
+            Create an Account to Save
+          </DialogTitle>
+          <DialogDescription className="text-center text-muted-foreground pt-2">
+            Log in or create an account to save and customize your generated
+            trip itinerary.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-col space-y-2 pt-4">
+          <Button
+            size="lg"
+            onClick={() => navigate('/login', { state: { from: { pathname: '/', search: '?showItinerary=true' } } })}
+            className="bg-gradient-hero hover:opacity-90"
+          >
+            Login
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => navigate('/signup', { state: { from: { pathname: '/', search: '?showItinerary=true' } } })}
+          >
+            Sign Up
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 
   const ItineraryEditor = () => (
     <Dialog open={isEditingItinerary} onOpenChange={setIsEditingItinerary}>
@@ -578,20 +683,40 @@ const TripPlannerSection = () => {
                       </Select>
                     </div>
                     <div>
-                      <Label htmlFor="duration">Duration</Label>
-                      <Select value={tripDetails.duration} onValueChange={(value) => setTripDetails({...tripDetails, duration: value})}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select duration" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="2 days">2 Days</SelectItem>
-                          <SelectItem value="3 days">3 Days</SelectItem>
-                          <SelectItem value="4 days">4 Days</SelectItem>
-                          <SelectItem value="5 days">5 Days</SelectItem>
-                          <SelectItem value="7 days">7 Days</SelectItem>
-                          <SelectItem value="10 days">10 Days</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Label htmlFor="dates">Dates</Label>
+                       <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            id="dates"
+                            variant={"outline"}
+                            className={`w-full justify-start text-left font-normal ${!tripDetails.date && "text-muted-foreground"}`}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {tripDetails.date?.from ? (
+                              tripDetails.date.to ? (
+                                <>
+                                  {format(tripDetails.date.from, "LLL dd, y")} -{" "}
+                                  {format(tripDetails.date.to, "LLL dd, y")}
+                                </>
+                              ) : (
+                                format(tripDetails.date.from, "LLL dd, y")
+                              )
+                            ) : (
+                              <span>Pick a date range</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            initialFocus
+                            mode="range"
+                            defaultMonth={tripDetails.date?.from}
+                            selected={tripDetails.date}
+                            onSelect={(date) => setTripDetails({...tripDetails, date: date})}
+                            numberOfMonths={2}
+                          />
+                        </PopoverContent>
+                      </Popover>
                     </div>
                     <div>
                       <Label htmlFor="budget">Budget Range</Label>
@@ -634,7 +759,7 @@ const TripPlannerSection = () => {
                   <Button 
                     onClick={generateItinerary} 
                     className="w-full bg-gradient-hero hover:opacity-90"
-                    disabled={!tripDetails.destination || !tripDetails.duration}
+                    disabled={!tripDetails.destination || !tripDetails.date}
                   >
                     <Sparkles className="mr-2 h-5 w-5" />
                     Generate AI Itinerary
@@ -803,6 +928,7 @@ const TripPlannerSection = () => {
         </Tabs>
         <ItineraryEditor />
         <PackageItineraryViewer />
+       <AuthDialog />
       </div>
     </section>
   );

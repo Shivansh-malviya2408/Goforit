@@ -5,13 +5,14 @@ import { Check, Star, Crown } from "lucide-react";
 const plans = [
   {
     name: "Basic",
-    price: "₹0.99",
-    period: "/month",
+    price: "FREE",
+    period: "  / for 1 Trip",
     description: "Perfect for occasional travelers",
     features: [
       "Access to basic destinations",
       "Standard booking options",
       "Email support",
+      "24/7 support",
       "Mobile app access",
       "Basic travel guides",
     ],
@@ -21,12 +22,12 @@ const plans = [
   {
     name: "Premium",
     price: "₹1,999",
-    period: "/month",
+    period: "/ for 3 Trips",
     description: "For the ultimate travel experience",
     features: [
       "Access to ALL destinations",
       "Priority booking & upgrades",
-      "24/7 phone & chat support",
+      "24/7 priority service & support",
       "Exclusive deals & discounts",
       "Personalized travel planning",
       "VIP airport lounge access",

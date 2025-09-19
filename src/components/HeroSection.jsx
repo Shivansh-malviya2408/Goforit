@@ -14,13 +14,13 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-6xl md:text-8xl font-bold mb-6">
-            <span className="gradient-text">TRAVEL</span>
+            <span className="gradient-text">LESS PLANNING</span>
             <br />
-            <span className="gradient-text">EFFICIENTLY</span>
+            <span className="gradient-text">MORE LIVING</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Discover the world with smart planning, exclusive deals, and personalized experiences.
+          <p className="text-xl md:text-1xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          Smart AI Itineraries, Hassle-free rides, Meals, and stays We handle the details, You enjoy the Journey.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

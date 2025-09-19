@@ -24,22 +24,23 @@ const Booking = () => {
       id: 1,
       type: 'flight',
       title: 'Flight to Paris',
-      details: 'New York (JFK) → Paris (CDG)',
+      details: 'Delhi Intwenational Airport (DIA) → Paris (CDG)',
       date: 'Dec 15, 2024',
       time: '10:30 AM',
       status: 'confirmed',
-      price: '$650',
+      type : 'Buisness Class',
+      price: '₹ 81,457',
       passengers: 2
     },
     {
       id: 2,
       type: 'hotel',
       title: 'Hotel de Louvre',
-      details: 'Deluxe Suite, 7 nights',
+      details: 'Deluxe Suite, 3 nights',
       date: 'Dec 15-22, 2024',
       time: 'Check-in 3:00 PM',
       status: 'confirmed',
-      price: '$1,890',
+      price: '₹68277/night',
       passengers: 2
     },
     {

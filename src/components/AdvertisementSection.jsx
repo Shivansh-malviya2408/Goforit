@@ -17,11 +17,11 @@ const AdvertisementSection = () => {
                   <Sparkles className="h-8 w-8 text-travel-gold" />
                 </div>
                 {/* UPDATED THIS LINE: Removed gradient classes and used a solid text color */}
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-travel-gold">
-                  Special Launch Offer
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-travel-gold ">
+                   🎉 <span className="gradient-text">Special Launch Offer </span>🎊
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-                  Join 10,000+ travelers who upgraded this month and save 50% on your first premium subscription!
+                  Join 10,000+ travelers who upgraded this month and Save Upto 50% on your first premium subscription!
                 </p>
                 <Button size="lg" className="bg-travel-gold text-background hover:bg-travel-gold/90 font-bold px-10 py-6 text-base">
                   Get 50% Off Premium

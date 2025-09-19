@@ -18,12 +18,12 @@ const Itinerary = () => {
   const [selectedTrip, setSelectedTrip] = useState('paris');
 
   const trips = [
-    { id: 'paris', name: 'Paris Adventure', dates: 'Dec 15-22, 2024' },
-    { id: 'tokyo', name: 'Tokyo Explorer', dates: 'Jan 10-20, 2025' }
+    { id: 'udaipur', name: 'Udaipur Vibe', dates: 'Oct 25-9, 2024' },
+    { id: 'goa', name: 'Goa Explorer', dates: 'Jan 10-20, 2025' }
   ];
 
   const itineraryData = {
-    paris: [
+    udaipur: [
       {
         day: 1,
         date: 'December 15, 2024',
@@ -31,11 +31,11 @@ const Itinerary = () => {
           {
             id: 1,
             time: '9:00 AM',
-            title: 'Arrival at Charles de Gaulle Airport',
+            title: 'Arrival at Udaipur Airport (Maharana Pratap Airport)',
             type: 'transport',
             duration: '30 min',
-            location: 'CDG Airport',
-            notes: 'Check-in opens at 3:00 PM'
+            location: 'Udaipur Airport (UDR)',
+            notes: 'Pre-arranged cab to hotel. Check-in opens at 3:00 PM'
           },
           {
             id: 2,
@@ -43,26 +43,26 @@ const Itinerary = () => {
             title: 'Hotel Check-in',
             type: 'accommodation',
             duration: '45 min',
-            location: 'Hotel de Louvre',
-            notes: 'Digital key activated'
+            location: 'The Leela Palace Udaipur', // Iconic Udaipur Hotel
+            notes: 'Digital key activated. Complimentary welcome drink.'
           },
           {
             id: 3,
             time: '2:00 PM',
-            title: 'Lunch at Café de Flore',
+            title: 'Lunch at Ambrai',
             type: 'food',
             duration: '1.5 hours',
-            location: 'Saint-Germain-des-Prés',
-            notes: 'Classic French bistro'
+            location: 'Amet Haveli (Near Pichola Lake)', // Famous restaurant with lake view
+            notes: 'Authentic Rajasthani Thali with lakeside views.'
           },
           {
             id: 4,
             time: '4:00 PM',
-            title: 'Seine River Cruise',
+            title: 'Sunset Boat Ride on Lake Pichola',
             type: 'activity',
             duration: '2 hours',
-            location: 'Port de la Bourdonnais',
-            notes: 'Skip-the-line tickets included'
+            location: 'City Palace Ghat',
+            notes: 'Enjoy the view of Jag Mandir and Jag Niwas (Lake Palace).'
           }
         ]
       },
@@ -73,34 +73,35 @@ const Itinerary = () => {
           {
             id: 5,
             time: '9:00 AM',
-            title: 'Eiffel Tower Visit',
+            title: 'City Palace Complex Visit',
             type: 'activity',
             duration: '3 hours',
-            location: 'Champ de Mars',
-            notes: 'Pre-booked summit access'
+            location: 'City Palace, Udaipur', // Main historical landmark
+            notes: 'Explore the Mor Chowk, Zenana Mahal, and the museum.'
           },
           {
             id: 6,
             time: '1:00 PM',
-            title: 'Lunch at Le Jules Verne',
+            title: 'Lunch at Upre by 1559 AD',
             type: 'food',
             duration: '2 hours',
-            location: 'Eiffel Tower',
-            notes: 'Michelin-starred restaurant'
+            location: 'Hotel Lake Pichola', // Restaurant with rooftop view
+            notes: 'Fine dining with views of the City Palace.'
           },
           {
             id: 7,
             time: '4:00 PM',
-            title: 'Louvre Museum',
+            title: 'Sajjangarh (Monsoon Palace) Sunset',
             type: 'activity',
             duration: '3 hours',
-            location: 'Musée du Louvre',
-            notes: 'Mona Lisa and highlights tour'
+            location: 'Sajjangarh Fort', // Hilltop palace for sunset
+            notes: 'Best spot for panoramic views of the city and surrounding lakes.'
           }
         ]
       }
     ],
-    tokyo: [
+     
+    goa: [
       {
         day: 1,
         date: 'January 10, 2025',

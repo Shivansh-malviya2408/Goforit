@@ -2,7 +2,6 @@
 # 🌍 Go For It  
 *A Unified Travel Ecosystem – Smart India Hackathon 2025*  
 ---
-
 ## 📌 Problem Statement  
 Travelers face challenges like:  
 - Multiple apps for flights, hotels, taxis, and tours.  

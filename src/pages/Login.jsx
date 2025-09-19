@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { generateToken } from "./Auth";
 // Note: Replace with actual Supabase client import when available
 const supabase = {
   auth: {
@@ -27,12 +28,11 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
 
-      if (error) {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find((u) => u.email === email && u.password === password);
+
+      if (!user) {
         toast({
           title: "Login Failed",
           description: error.message,
@@ -43,12 +43,15 @@ const Login = () => {
           title: "Welcome back!",
           description: "You have successfully logged in.",
         });
+        const token = generateToken(user);
+       localStorage.setItem("token", token);
         navigate("/dashboard");
+        
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "An unexpected error occurred",
+        description: "You have Entered Invalid Credentials",
         variant: "destructive",
       });
     } finally {
@@ -60,7 +63,7 @@ const Login = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">go for it</h1>
+          <h1 className="text-4xl font-bold gradient-text mb-2">Go For It </h1>
           <p className="text-muted-foreground">Welcome back to your travel companion</p>
         </div>
         

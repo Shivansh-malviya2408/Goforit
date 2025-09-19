@@ -17,6 +17,7 @@ interface SidebarProps {
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'planatrip', label: 'Plan a Trip', icon: Plane },
   { id: 'bookings', label: 'Bookings', icon: Plane },
   { id: 'itinerary', label: 'Itinerary', icon: MapPin },
   { id: 'digital-keys', label: 'Digital Keys', icon: KeyRound },
@@ -27,9 +28,9 @@ const menuItems = [
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="fixed left-0 top-0 h-screen w-64 bg- shadow-xl border-r border-border z-10">
+    <div className="fixed left-0 top-0 h-full w-64 bg-black shadow-xl border-r z-10">
       <div className="p-6">
-        <div className="flex items-center space-x-3 mb-8">
+        <div className="flex items-center space-x-4 mb-8">
           {/* <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
             <Plane className="w-6 h-6 text-white" />
           </div> */}
@@ -61,6 +62,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
             );
           })}
         </nav>
+         
+
       </div>
     </div>
   );

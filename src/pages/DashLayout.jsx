@@ -3,10 +3,12 @@ import Dashboard from './Dashboard';
 import Sidebar from './SideBar'
 import Booking from './Booking';
 import Itinerary from './Itinerary';
-// import DigitalKeys from './DigitalKeys';
-// import Budget from './Budget';
+import DigitalKeys from './DigitalKeys';
+import Budget from './Budget';
 import Notifications from './Notifications';
 import Profile from './Profile';
+import PlanTrip from './PlanTrip';
+// import Budget from './Budget';
 
 function DashLayout() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -14,17 +16,18 @@ function DashLayout() {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard /> ;
+        case 'planatrip':
+        return <PlanTrip />;
       case 'bookings':
         return <Booking />;
       // case 'preferences':
       case 'itinerary':
         return <Itinerary />;
-      // case 'digital-keys':
-    //   case 'digital-keys':
-    //     return <DigitalKeys />;
-    //   case 'budget':
-    //     return <Budget />;
+      case 'digital-keys':
+        return <DigitalKeys />;
+      case 'budget':
+       return <Budget/>
       case 'notifications':
         return <Notifications />;
       case 'profile':

@@ -39,17 +39,26 @@ const Signup = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: fullName,
-          },
-        },
-      });
+      // const { error } = await supabase.auth.signUp({
+      //   email,
+      //   password,
+      //   options: {
+      //     data: {
+      //       full_name: fullName,
+      //     },
+      //   },
+      // });
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.find((u) => u.email === email)) {
+      alert("User already exists!");
+      return;
+    }
 
-      if (error) {
+      
+    users.push({ email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+      if (!users) {
         toast({
           title: "Signup Failed",
           description: error.message,

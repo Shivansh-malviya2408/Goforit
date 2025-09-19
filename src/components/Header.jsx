@@ -11,13 +11,16 @@ const Header = () => {
         </div>
         
         {/* Centered navigation links */}
-        <nav className="hidden md:flex items-center space-x-2">
+        <nav className="hidden md:flex items-center ml-20 space-x-2">
           {/* Changed variant to 'ghost' for consistent styling */}
           <Button variant="ghost" size="sm" asChild>
             <a href="#locations">Destinations</a>
           </Button>
           <Button variant="ghost" size="sm" asChild>
             <a href="#plans">Plans</a>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <a className="font-bold text-m"  href="#special-offer">🎉 Special Offer 🎉</a>
           </Button>
           
           {/* Updated Special Offer Button with solid golden theme color */}

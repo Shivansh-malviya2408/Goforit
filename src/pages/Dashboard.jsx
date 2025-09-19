@@ -47,7 +47,7 @@ const Dashboard = () => { // Removed : React.FC
   ];
 
   return (
-    <div className="space-y-8 bg-black">
+    <div className="space-y-8 from-slate-50 to-blue-50">
       {/* Header */}
       <div className="flex items-center  justify-between">
         <div>

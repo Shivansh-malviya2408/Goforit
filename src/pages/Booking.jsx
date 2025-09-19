@@ -28,7 +28,6 @@ const Booking = () => {
       date: 'Dec 15, 2024',
       time: '10:30 AM',
       status: 'confirmed',
-      type : 'Buisness Class',
       price: '₹ 81,457',
       passengers: 2
     },

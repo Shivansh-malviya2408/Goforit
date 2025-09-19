@@ -1,4 +1,4 @@
-
+ 
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
     Send, Sparkles, Compass, Gem, PlusCircle, MapPin, Clock, Plane, Hotel, Edit, Calendar, Users, Utensils, Camera, MountainSnow, FerrisWheel, Briefcase, ShoppingCart, Drama, Ship, Palmtree, CheckCircle, Train, Mountain, Waves, Landmark,
-    Link
+    Link, Loader2 // <-- Import the Loader2 icon for the spinner
 } from "lucide-react";
 
 // --- Mock Data ---
@@ -93,7 +93,7 @@ const packageData = {
     ],
     religious: [
         { id: 'r1', name: 'Varanasi Spiritual Sojourn', image: 'https://bhramantoo.com/uploads/0000/6/2025/05/08/download-19.png', description: 'Experience the Ganga Aarti and ancient temples of Kashi.', durations: [{ days: 4, price: '₹25,000' }] },
-        { id: 'r2', name: 'Golden Temple & Amritsar', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Golden_Temple_of_Amrithsar_7.jpg/1200px-The_Golden_Temple_of_Amrithsar_7.jpg', description: 'A journey of peace to the Golden Temple and Wagah Border.', durations: [{ days: 4, price: '₹22,000' }] },
+        { id: 'r2', name: 'Golden Temple & Amritsar', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/The_Golden_Temple_of_Amrithsar_7.jpg/1200px-Mthe_Golden_Temple_of_Amrithsar_7.jpg', description: 'A journey of peace to the Golden Temple and Wagah Border.', durations: [{ days: 4, price: '₹22,000' }] },
         { id: 'r3', name: 'Char Dham Yatra', image: 'https://www.shrineyatra.in/wp-content/uploads/2024/05/chardham-yatra-package.webp', description: 'A pilgrimage to the four holy sites in Uttarakhand.', durations: [{ days: 8, price: '₹80,000' }] },
     ],
 };
@@ -144,10 +144,19 @@ const TripPlannerSection = () => {
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [selectedTrain, setSelectedTrain] = useState(null);
   const [transportMode, setTransportMode] = useState('flight');
+  const [isGenerating, setIsGenerating] = useState(false); // <-- NEW STATE FOR LOADER
 
-  const generateItinerary = () => {
+  const generateItinerary = async () => { // <-- MADE ASYNC
+    setIsGenerating(true); // <-- START LOADER
+
+    // Simulate an API call delay
+    await new Promise(resolve => setTimeout(resolve, 3500)); // 1.5 second delay
+
     const duration = parseInt(tripDetails.duration.split(' ')[0], 10);
-    if (!duration || !tripDetails.destination) return;
+    if (!duration || !tripDetails.destination) {
+        setIsGenerating(false); // Stop loader if validation fails
+        return;
+    }
 
     const destinationKey = Object.keys(destinationsData).find(key => 
         tripDetails.destination.toLowerCase().includes(key)
@@ -234,6 +243,8 @@ const TripPlannerSection = () => {
     setSelectedHotel(itinerary.hotels.midRange[0]); // Default selection
     setSelectedTrain(itinerary.trains[0]);
     setTransportMode('flight');
+
+    setIsGenerating(false); // <-- STOP LOADER
   };
 
   const totalPrice = useMemo(() => {
@@ -641,10 +652,14 @@ const TripPlannerSection = () => {
                   <Button 
                     onClick={generateItinerary} 
                     className="w-full bg-gradient-hero hover:opacity-90"
-                    disabled={!tripDetails.destination || !tripDetails.duration}
+                    disabled={!tripDetails.destination || !tripDetails.duration || isGenerating} // <-- DISABLED WHILE GENERATING
                   >
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    Generate AI Itinerary
+                    {isGenerating ? (
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" /> // <-- LOADER SPINNER
+                    ) : (
+                        <Sparkles className="mr-2 h-5 w-5" />
+                    )}
+                    {isGenerating ? "Generating..." : "Generate AI Itinerary"} {/* <-- BUTTON TEXT CHANGES */}
                   </Button>
                 </CardContent>
               </Card>

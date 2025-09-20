@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
           </h1>
         </div>
 
-        <nav className="space-y-2">
+        <nav className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

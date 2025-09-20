@@ -47,7 +47,7 @@ const Login = () => {
         const token = generateToken(user);
        localStorage.setItem("token", token);
        localStorage.setItem("email",email);
-       await new Promise(resolve => setTimeout(resolve, 2000)); // 1.5 second delay
+      //  await new Promise(resolve => setTimeout(resolve, 2000)); // 1.5 second delay
         navigate("/dashboard");
         
       }

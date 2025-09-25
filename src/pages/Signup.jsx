@@ -102,7 +102,7 @@ const Signup = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">go for it</h1>
+          <h1 className="text-4xl font-bold gradient-text mb-2">Go for It</h1>
           <p className="text-muted-foreground">Start your journey with us</p>
         </div>
         

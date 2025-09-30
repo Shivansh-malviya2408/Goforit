@@ -12,6 +12,7 @@ import {
   Coffee,
   Utensils
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // Removed : React.FC
 const Itinerary = () => {

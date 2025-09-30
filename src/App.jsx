@@ -14,6 +14,8 @@ import DashLayout from "./pages/DashLayout";
 // import Itinerary from "./pages/Itinerary";
 // import Notifications from "./pages/Notifications";
 import { AuthProvider } from "./components/context/AuthContext";
+import Itinerary from "./pages/Itinerary";
+import Payment from "./pages/Payment";
 // import Payment from 
 
 const queryClient = new QueryClient();
@@ -29,12 +31,14 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/index" element={<Index/>} />
 
          <Route path="/dashboard/*" element={<DashLayout/>}>
-
-          
-
          </Route>
+         <Route path="/payment" element={<Payment/>}></Route>
+
+         <Route path="/planatrip" element={<PlanTrip/>}></Route>
+         
          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

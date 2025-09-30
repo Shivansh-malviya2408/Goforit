@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 // import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,7 +17,9 @@ import {
 
 // --- Mock Data ---
 
-// const navigate = useNavigate();
+
+ 
+
 
 const destinationsData = {
     "rajasthan": {
@@ -124,8 +126,21 @@ const formatCurrency = (amount) => {
     }).format(amount);
 };
 
+//  
 
-const TripPlannerSection = () => {
+
+
+const  PlanTrip = () => {
+
+  
+  const navigate=useNavigate();
+  function handlePayment()
+  {
+    navigate('/payment');
+  }
+  
+
+
   const [activeTab, setActiveTab] = useState("planner");
   const [generatedItinerary, setGeneratedItinerary] = useState(null);
   const [isEditingItinerary, setIsEditingItinerary] = useState(false);
@@ -539,7 +554,7 @@ const TripPlannerSection = () => {
                         View Itinerary
                     </Button>
                     
-                   <Button className="w-full bg-gradient-hero hover:opacity-90">
+                   <Button  className="w-full bg-gradient-hero hover:opacity-90">
                         Book Now
                     </Button>
                   
@@ -548,6 +563,8 @@ const TripPlannerSection = () => {
         </Card>
     )
   }
+ 
+
 
   return (
     <section id="trip-planner" className="py-20 px-4 bg-background">
@@ -789,7 +806,7 @@ const TripPlannerSection = () => {
                                 <span className="text-primary">{formatCurrency(totalPrice.total)}</span>
                             </div>
                         </div>
-                        <Button className="w-full bg-gradient-hero hover:opacity-90">
+                        <Button className="w-full bg-gradient-hero hover:opacity-90" onClick={()=>handlePayment()}>
                             Book Now
                         </Button>
                       </CardContent>
@@ -830,4 +847,4 @@ const TripPlannerSection = () => {
   );
 };
 
-export default TripPlannerSection;
+export default PlanTrip;
